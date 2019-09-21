@@ -23,7 +23,7 @@ if (process.env.NODE_ENV !== 'production') {
     if (req.body) console.info(req.body, 'the rquest body');
     if (req.params) console.info(req.params, 'the req params');
     if (req.query) console.info(req.query, 'the req query');
-    console.log(`Received a ${req.method} request from ${req.ip} for ${req.url}`)
+    console.log(`Received a ${req.method} request from ${req.ip} for ${req.url}`);
     next();
   });
 }
