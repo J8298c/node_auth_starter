@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-shadow */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable consistent-return */
@@ -20,7 +21,6 @@ router.get('/profile/:id', passport.authenticate('jwt', { session: false }), asy
 router.post('/register', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    console.log(user, 'the user ----------------------------------->>')
     if (user && Object.keys(user).length) {
       const errorMSG = 'Email is already registered';
       return res.status(400).json({ message: errorMSG });
