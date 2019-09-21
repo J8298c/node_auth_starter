@@ -29,5 +29,16 @@ describe('auth testing', () => {
         done(e);
       }
     });
+    it('should fail if email exists already', async () => {
+      try {
+        const testUser = { email: 'testuser@test.com', password: 'abcd1234' }
+        const results = await chai.request(app)
+          .post('/users/register')
+          .send(testUser);
+        expect(results.status).to.equal(400);
+      } catch (e) {
+        console.log(e)
+      }
+    })
   });
 });
