@@ -37,3 +37,5 @@ if (process.env.NODE_ENV !== 'production') {
 app.use('/users', userRouter);
 
 app.listen(process.env.PORT, () => console.log(`app is listening on port: ${process.env.PORT}`));
+
+module.exports = app;
