@@ -10,6 +10,8 @@ const userRouter = require('./api/users/router');
 
 const app = express();
 
+require('./config/passport.config')(passport);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
