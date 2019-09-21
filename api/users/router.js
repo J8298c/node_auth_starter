@@ -4,11 +4,12 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const User = require('./model');
 
 const router = express.Router();
 
-router.get('/profile/:id', async (req, res) => {
+router.get('/profile/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
     return res.status(200).json({ message: 'julio' });
   } catch (err) {
@@ -18,8 +19,9 @@ router.get('/profile/:id', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const user = User.findOne({ email: req.body.email });
-    if (user && Object.keys(user)) {
+    const user = await User.findOne({ email: req.body.email });
+    console.log(user, 'the user ----------------------------------->>')
+    if (user && Object.keys(user).length) {
       const errorMSG = 'Email is already registered';
       return res.status(400).json({ message: errorMSG });
     }
@@ -66,8 +68,8 @@ router.post('/login', async (req, res) => {
             firstName: user.firstName,
             lastName: user.lastName,
           };
-          jwt.sign(payload, process.env.Secret, { expiresIn: 36000 }, (err, token) => {
-            if (err) res.status(500).json({ error: 'Error signing token' });
+          jwt.sign(payload, process.env.SECRET, { expiresIn: 36000 }, (err, token) => {
+            if (err) return res.status(500).json({ error: 'Error signing token' });
             return res.status(200).json({ success: true, token: `Bearer ${token}` });
           });
         } else {

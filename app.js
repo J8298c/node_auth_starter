@@ -6,9 +6,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
+const mongoose = require('mongoose');
 const userRouter = require('./api/users/router');
 
 const app = express();
+
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGO_URI);
 
 require('./config/passport.config')(passport);
 
