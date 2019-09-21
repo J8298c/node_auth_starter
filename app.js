@@ -13,4 +13,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+require('./configs/passport');
+
 app.listen(process.env.PORT, () => console.log(`app is listening on port: ${process.env.PORT}`));
